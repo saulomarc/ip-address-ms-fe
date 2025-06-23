@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  vue-app:
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app #mounts the project directory from host into the container at /app to ensure that code changes in host is reflected immediately in container
+      - /app/node_modules  # prevent overwriting container's node_modules
