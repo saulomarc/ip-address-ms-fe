@@ -8,7 +8,7 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
 
 <template>
     <header class="">
-        <Disclosure as="nav" class="bg-white shadow-sm" v-slot="{ open }">
+        <Disclosure as="nav" class="bg-white shadow-sm fixed w-full" v-slot="{ open }">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 justify-between">
                     <div class="flex">
@@ -105,7 +105,7 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
         </Disclosure>
     </header>
     
-    <div class="px-20">
+    <div class="px-20 pt-24 bg-neutral-50 min-h-screen">
         <RouterView />
     </div>
 </template>
