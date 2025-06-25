@@ -3,6 +3,9 @@ import HelloWorld from '../components/HelloWorld.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { PlusIcon } from '@heroicons/vue/20/solid'
+import { useAuthStore } from '@/stores/auth'
+
+const store = useAuthStore()
 
 </script>
 
@@ -63,7 +66,7 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
                                             <a href="#" :class="[active ? 'bg-gray-100 outline-hidden' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
-                                            <a href="#" :class="[active ? 'bg-gray-100 outline-hidden' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                                            <a href="#" @click="store.logout()" :class="[active ? 'bg-gray-100 outline-hidden' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
                                         </MenuItem>
                                     </MenuItems>
                                 </transition>
@@ -98,7 +101,7 @@ import { PlusIcon } from '@heroicons/vue/20/solid'
                     <div class="mt-3 space-y-1">
                         <DisclosureButton as="a" href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">Your Profile</DisclosureButton>
                         <DisclosureButton as="a" href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">Settings</DisclosureButton>
-                        <DisclosureButton as="a" href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">Sign out</DisclosureButton>
+                        <DisclosureButton as="a" href="#" @click="store.logout()" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">Sign out</DisclosureButton>
                     </div>
                 </div>
             </DisclosurePanel>
