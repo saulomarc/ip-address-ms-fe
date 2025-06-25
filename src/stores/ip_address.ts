@@ -36,9 +36,19 @@ export const useIPAddressStore = defineStore('ipAddress', {
                     label: "Label"
                 },
                 {
+                    name: "owner",
+                    sortable: false,
+                    label: "Owner"
+                },
+                {
                     name: "comment",
                     sortable: false,
                     label: "Comment"
+                },
+                {
+                    name: "action",
+                    sortable: false,
+                    label: "Actions"
                 },
             ],
             options: {
