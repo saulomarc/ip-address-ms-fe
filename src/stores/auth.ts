@@ -11,11 +11,12 @@ export const useAuthStore = defineStore('auth', {
         return {
             token: null as string | null,
             authenticated: false,
-            user: {},
-            roles: [],
-            permissions: []
+            user: {} as User,
+            roles: [] as string[],
+            permissions: [] as string[]
         }
     },
+    persist: true,
     actions: {
         async loginUser(payload: {email: string, password: string}): Promise<void> {
             try {
@@ -41,26 +42,50 @@ export const useAuthStore = defineStore('auth', {
                 }
             }
         },
-        async handleCallback(payload: { authorization: {token: string, type: string}, user: User, status: string, error: unknown; }) {
+        async handleCallback(payload: { access_token: string, type: string, expires_in: Number }) {
             try {
                 this.setLoginDetails(payload)
-                router.push({ name: 'home' })
+                const { data } = await instance.post('auth/me');
+                
+                if (data) {
+                    this.getRoles(data)
+                    this.getPermissions(data)
+                    this.setUserDetails(data)
+                    router.push({ name: 'home' })
+                }
             } catch (error) {
-                const errMessage = `Something went wrong while performing your request. Please contact administrator`;
-                useAlertStore().error(errMessage)
+                if (!axios.isAxiosError(error)) {
+                    const errMessage = `Something went wrong while performing your request. Please contact administrator`;
+                    useAlertStore().error(errMessage)
+                }
             }
         },
         async logout() {
+            try {
+                const { data } = await instance.post('auth/logout');
+                this.unsetLoginDetails()
+            } catch (error) {
+                if (!axios.isAxiosError(error)) {
+                    const errMessage = `Something went wrong while performing your request. Please contact administrator`;
+                    useAlertStore().error(errMessage)
+                }
+            }            
+        },
+        unsetLoginDetails() {
             this.token = null
             this.authenticated = false
-            this.user = {}
+            this.user = {} as User
 
             router.push({ name: 'login' })
         },
-        setLoginDetails(loginDetails: { authorization: {token: string, type: string}, user: User, status: string, error: unknown; }) {
-            this.token = loginDetails.authorization.token
-            this.user = loginDetails.user
+        setLoginDetails(loginDetails: { access_token: string, type: string, expires_in: Number }) {
+            this.token = loginDetails.access_token
             this.authenticated = true
+        },
+        setUserDetails(userDetails: User) {
+            this.user = userDetails
+
+            useAlertStore().success('Welcome back, ' + this.user.name + '!')
         },
         async logoutUser() {
             await instance.post('auth/logout')
@@ -68,6 +93,38 @@ export const useAuthStore = defineStore('auth', {
             this.logout()
 
             router.push({ name: 'login' })
+        },
+        getRoles(userInfo: User) {
+            var roles: string[] = []
+
+            userInfo.roles!.forEach(role => {
+                roles.push(role.name)
+            });
+
+            this.roles = roles
+        },
+        getPermissions(userInfo: User) {
+            var permissions: string[] = []
+
+            userInfo.permissions!.forEach(permission => {
+                permissions.push(permission.name)
+            });
+
+            this.permissions = permissions
+        },
+        checkRole(pageRole: string) {
+            return this.roles.filter(
+                (role) => role === pageRole
+            ).length;
+        },  
+        checkPermission(pagePermission: string) {
+            return this.permissions.filter((permission) => {
+                if (pagePermission) {
+                    return pagePermission.includes(permission)
+                } else {
+                    return false
+                }
+            }).length;
         },
         async fetchTestData() {
             try {
