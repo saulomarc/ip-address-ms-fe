@@ -14,7 +14,7 @@
                     </div>
                     <div>
                         <label for="num-of-items" class="block text-xs text-gray-500">No. of items</label>
-                        <select v-model="numOfItems" name="num-of-items" id="num-of-items" class="p-1 w-full border-2 border-gray-200">
+                        <select v-model="numOfItems" name="num-of-items" id="num-of-items" class="p-1 w-full border bg-white border-gray-200">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -30,10 +30,10 @@
             <CircSpinner :isLoading="isLoading" :size="'large'" />
         </div>
         <div v-if="!isLoading" :class="[
-                'bg-white overflow-auto sm:rounded-lg mb-4',
+                'bg-white overflow-auto mb-4 border border-gray-200 pb-2',
                 cssClass,
             ]">
-            <table class="min-w-full divide-y divide-gray-300 border border-gray-200 rounded-xl">
+            <table class="min-w-full divide-y divide-gray-200 rounded-md">
                 <thead>
                     <tr class="font-bold bg-up-maroon font-optimasemi">
                         <th v-for="(header, headerIndex) in tableHeaders" :key="headerIndex" class="py-2 pl-4 pr-3 text-left text-sm font-semibold uppercase text-black sm:pl-3" scope="col"
