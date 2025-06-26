@@ -22,13 +22,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { layout: 'DashboardLayout', title: 'IP Address MS - Home', breadcrumb: 'Home' },
+      meta: { layout: 'DashboardLayout', title: 'Home', breadcrumb: 'Home' },
     },
     {
       path: '/add-new-ip',
       name: 'add-ip',
-      component: () => AddNewIPView,
-      meta: { layout: 'DashboardLayout', title: 'IP Address MS - Add', breadcrumb: 'Add New IP' },
+      component: AddNewIPView,
+      meta: { layout: 'DashboardLayout', title: 'Add New IP', breadcrumb: 'Add New IP' },
     },
     {
       path: '/about',
@@ -43,7 +43,7 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
-      meta: { layout: 'PlainLayout', title: 'IP Address MS - Login' },
+      meta: { layout: 'PlainLayout', title: 'Login' },
       beforeEnter: (to, from) => {
         if (useAuthStore().authenticated) {
           return { name: 'home' }
@@ -60,10 +60,6 @@ router.beforeEach(async (to, from) => {
     // redirect the user to the login page
     return { name: 'login' }
   }
-})
-
-router.afterEach(async (to, from) => {
-  console.log(useRoute().matched)
 })
 
 export default router
