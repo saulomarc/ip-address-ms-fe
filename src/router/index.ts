@@ -8,6 +8,7 @@ import 'vue-router';
 import EditIpView from '@/views/EditIpView.vue';
 import UnauthorizedView from '@/views/UnauthorizedView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
+import LogsView from '@/views/LogsView.vue';
 
 // declare a new module to include title string for type checking and avoiding unknown errors
 declare module 'vue-router' {
@@ -15,6 +16,7 @@ declare module 'vue-router' {
     title?: string; // Declare title as an optional string
     requiresAuth?: boolean;
     breadcrumb?: string;
+    role?: string
   }
 }
 
@@ -52,6 +54,12 @@ const router = createRouter({
       meta: { layout: 'PlainLayout', title: 'Not Found' },
     },
     {
+      path: '/logs',
+      name: 'logs',
+      component: LogsView,
+      meta: { layout: 'DashboardLayout', title: 'Logs', role: 'super_admin' },
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
@@ -71,6 +79,12 @@ router.beforeEach(async (to, from) => {
   if (!useAuthStore().authenticated && to.name !== 'login') {
     // redirect the user to the login page
     return { name: 'login' }
+  }
+
+  if (to.meta.role) {
+    if (!useAuthStore().checkRole(to.meta.role)) {
+      return { name: 'home' }
+    }
   }
 })
 
