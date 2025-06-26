@@ -1,4 +1,5 @@
 export interface IPAddress {
+    id?: number,
     ip_address: string,
     label: string,
     comment?: string | null,

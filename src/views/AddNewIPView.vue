@@ -11,7 +11,7 @@ const ip_address = {
 <template>
   <main>
     <div class="flex items-center justify-center">
-      <UpdateIP class="md:w-1/2 sm:w-3/4 w-4/5" :ip_address="ip_address" :mode="'Add'"/>
+      <UpdateIP class="md:w-2/3 sm:w-3/4 w-4/5" :ip_address="ip_address" :mode="'Add'"/>
     </div>
   </main>
 </template>

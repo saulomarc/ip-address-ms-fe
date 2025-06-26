@@ -91,9 +91,35 @@ export const useIPAddressStore = defineStore('ipAddress', {
             this.isLoading = true
 
             try {
-                const response = await instance.post('/ip-addresses', payload);
+                const response = await instance.post(`/ip-addresses`, payload);
 
                 useAlertStore().success("Successfully Added New IP Address!")
+                this.isLoading = false
+
+                return true
+            } catch (err : any) {
+                if (!axios.isAxiosError(err)) {
+                    const errMessage = `Something went wrong while performing your request. Please contact administrator`;
+                    useAlertStore().error(errMessage)
+                } else {
+                    useAlertStore().error(err.message)
+                }
+                this.isLoading = false
+
+                return false
+            } finally {
+                
+            }
+
+        },
+        async deleteIpAddress(id: number) {
+            this.isLoading = true
+
+            try {
+                const response = await instance.delete(`/ip-addresses/${id}`);
+
+                useAlertStore().success("Successfully Deleted IP Address!")
+                this.fetchIpAddressesData(1)
                 this.isLoading = false
 
                 return true
