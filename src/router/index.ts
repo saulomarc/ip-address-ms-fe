@@ -1,6 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+
+import HomeView from '../views/HomeView.vue'
+import AddNewIPView from '@/views/AddNewIPView.vue';
+
 import 'vue-router';
 
 // declare a new module to include title string for type checking and avoiding unknown errors
@@ -8,6 +11,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     title?: string; // Declare title as an optional string
     requiresAuth?: boolean;
+    breadcrumb?: string;
   }
 }
 
@@ -18,7 +22,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { layout: 'DashboardLayout', title: 'IP Address MS - Home' },
+      meta: { layout: 'DashboardLayout', title: 'IP Address MS - Home', breadcrumb: 'Home' },
+    },
+    {
+      path: '/add-new-ip',
+      name: 'add-ip',
+      component: () => AddNewIPView,
+      meta: { layout: 'DashboardLayout', title: 'IP Address MS - Add', breadcrumb: 'Add New IP' },
     },
     {
       path: '/about',
@@ -27,7 +37,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
-      meta: { layout: 'DashboardLayout', title: 'About' },
+      meta: { layout: 'DashboardLayout', title: 'About', breadcrumb: 'About' },
     },
     {
       path: '/login',
@@ -45,12 +55,15 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   document.title = to.meta.title || 'Default Title';
-
   // make sure the user is authenticated and avoid an infinite redirect
   if (!useAuthStore().authenticated && to.name !== 'login') {
     // redirect the user to the login page
     return { name: 'login' }
   }
+})
+
+router.afterEach(async (to, from) => {
+  console.log(useRoute().matched)
 })
 
 export default router

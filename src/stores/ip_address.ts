@@ -87,6 +87,31 @@ export const useIPAddressStore = defineStore('ipAddress', {
             this.isLoading = false
             this.isInitialLoading = false
         },
+        async addIpAddress(payload: IPAddress) {
+            this.isLoading = true
+
+            try {
+                const response = await instance.post('/ip-addresses', payload);
+
+                useAlertStore().success("Successfully Added New IP Address!")
+                this.isLoading = false
+
+                return true
+            } catch (err : any) {
+                if (!axios.isAxiosError(err)) {
+                    const errMessage = `Something went wrong while performing your request. Please contact administrator`;
+                    useAlertStore().error(errMessage)
+                } else {
+                    useAlertStore().error(err.message)
+                }
+                this.isLoading = false
+
+                return false
+            } finally {
+                
+            }
+
+        },
         async fetchTestData() {
             try {
                 const response = await instance.get('https://jsonplaceholder.typicode.com/todos/1');

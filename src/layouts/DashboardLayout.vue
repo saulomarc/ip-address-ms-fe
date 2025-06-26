@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from '../components/HelloWorld.vue'
+import Breadcrumbs from '../components/Breadcrumbs.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { PlusIcon } from '@heroicons/vue/20/solid'
@@ -29,17 +30,17 @@ const store = useAuthStore()
                         </div>
                         <div class="hidden md:ml-6 md:flex md:space-x-8">
                             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                            <router-link to="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Dashboard</router-link>
+                            <!-- <router-link to="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Dashboard</router-link>
                             <router-link to="/about" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">About</router-link>
-                            <router-link to="/login" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Login</router-link>
+                            <router-link to="/login" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Login</router-link> -->
                         </div>
                     </div>
                     <div class="flex items-center">
                         <div class="shrink-0">
-                            <button type="button" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            <router-link to="/add-new-ip" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 <PlusIcon class="-ml-0.5 size-5" aria-hidden="true" />
                                 New IP
-                            </button>
+                            </router-link>
                         </div>
                         <div class="hidden md:ml-4 md:flex md:shrink-0 md:items-center">
                             <button type="button" class="relative rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
@@ -79,9 +80,9 @@ const store = useAuthStore()
             <DisclosurePanel class="md:hidden">
                 <div class="space-y-1 pt-2 pb-3">
                     <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-                    <DisclosureButton as="a" href="/" class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pr-4 pl-3 text-base font-medium text-indigo-700 sm:pr-6 sm:pl-5">Dashboard</DisclosureButton>
+                    <!-- <DisclosureButton as="a" href="/" class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pr-4 pl-3 text-base font-medium text-indigo-700 sm:pr-6 sm:pl-5">Dashboard</DisclosureButton>
                     <DisclosureButton as="a" href="/about" class="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pr-6 sm:pl-5">About</DisclosureButton>
-                    <DisclosureButton as="a" href="/login" class="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pr-6 sm:pl-5">Login</DisclosureButton>
+                    <DisclosureButton as="a" href="/login" class="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pr-6 sm:pl-5">Login</DisclosureButton> -->
                 </div>
                 <div class="border-t border-gray-200 pt-4 pb-3">
                     <div class="flex items-center px-4 sm:px-6">
@@ -108,7 +109,7 @@ const store = useAuthStore()
         </Disclosure>
     </header>
     
-    <div class="px-20 pt-24 bg-neutral-50 min-h-screen">
+    <div class="md:px-20 px-4 pt-24 bg-neutral-50 min-h-screen">
         <RouterView />
     </div>
 </template>
