@@ -6,6 +6,8 @@ import AddNewIPView from '@/views/AddNewIPView.vue';
 
 import 'vue-router';
 import EditIpView from '@/views/EditIpView.vue';
+import UnauthorizedView from '@/views/UnauthorizedView.vue';
+import NotFoundView from '@/views/NotFoundView.vue';
 
 // declare a new module to include title string for type checking and avoiding unknown errors
 declare module 'vue-router' {
@@ -38,13 +40,16 @@ const router = createRouter({
       meta: { layout: 'DashboardLayout', title: 'Edit IP', breadcrumb: 'Edit IP' },
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-      meta: { layout: 'DashboardLayout', title: 'About', breadcrumb: 'About' },
+      path: '/unauthorized',
+      name: 'unauthorized',
+      component: UnauthorizedView,
+      meta: { layout: 'PlainLayout', title: 'Unauthorized' },
+    },
+    {
+      path: '/not-found',
+      name: 'not-found',
+      component: NotFoundView,
+      meta: { layout: 'PlainLayout', title: 'Not Found' },
     },
     {
       path: '/login',
