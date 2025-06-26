@@ -28,7 +28,7 @@ instance.interceptors.response.use(
     },
 
     async (error) => {
-        if (error.response && error.status === 401 && (error.response.data.error == 'Unauthorized' || error.response.data.error == 'Unauthenticated.')) {
+        if (error.response && error.status === 401) {
             useAuthStore().unsetLoginDetails()
         } else if (error.status != 500) {
             useAlertStore().error(error.response?.data.error)
