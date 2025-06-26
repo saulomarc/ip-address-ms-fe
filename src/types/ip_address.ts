@@ -1,5 +1,5 @@
 export interface IPAddress {
-    ipAddress: string,
+    ip_address: string,
     label: string,
     comment?: string | null,
     [key: string]: any
