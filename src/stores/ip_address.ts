@@ -13,6 +13,7 @@ export const useIPAddressStore = defineStore('ipAddress', {
     state: () => {
         return {
             ipAddresses: {} as IpAddressData,
+            ipAddress: {} as IPAddress,
             isInitialLoading: true,
             isLoading: false,
             filterHeaders: [ 
@@ -87,6 +88,48 @@ export const useIPAddressStore = defineStore('ipAddress', {
             this.isLoading = false
             this.isInitialLoading = false
         },
+        async fetchIpAddress(id: string) {
+            this.isLoading = true
+
+            try {
+                const response = await instance.get(`/ip-addresses/${id}`);
+
+                this.ipAddress = response.data.ip_address;
+            } catch (err : any) {
+                console.log(err)
+            } finally {
+                
+            }
+
+            this.isLoading = false
+            this.isInitialLoading = false
+        },
+        async editIpAddress(payload: IPAddress) {
+            this.isLoading = true
+
+            try {
+                const response = await instance.put(`/ip-addresses/${payload.id}`, {
+                    label: payload.label
+                });
+
+                useAlertStore().success("Successfully Edited New IP Address!")
+                this.isLoading = false
+
+                return true
+            } catch (err : any) {
+                if (!axios.isAxiosError(err)) {
+                    const errMessage = `Something went wrong while performing your request. Please contact administrator`;
+                    useAlertStore().error(errMessage)
+                } else if (err.status !== 403) {
+                    useAlertStore().error(err.message)
+                }
+                this.isLoading = false
+
+                return false
+            } finally {
+                
+            }
+        },
         async addIpAddress(payload: IPAddress) {
             this.isLoading = true
 
@@ -127,7 +170,7 @@ export const useIPAddressStore = defineStore('ipAddress', {
                 if (!axios.isAxiosError(err)) {
                     const errMessage = `Something went wrong while performing your request. Please contact administrator`;
                     useAlertStore().error(errMessage)
-                } else {
+                } else if (err.status !== 403) {
                     useAlertStore().error(err.message)
                 }
                 this.isLoading = false

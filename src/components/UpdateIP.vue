@@ -30,7 +30,7 @@ async function handleSubmitIp() {
     if (props.mode === 'Add') {
         success = await ipAddressStore.addIpAddress(editableIp)
     } else {
-
+        success = await ipAddressStore.editIpAddress(editableIp)
     }
 
     if (success) {
@@ -52,7 +52,7 @@ async function handleSubmitIp() {
             <div class="mb-3">
                 <label for="ip_address" class="block text-sm/6 font-medium text-gray-900">IP Address</label>
                 <Field v-model="editableIp.ip_address" v-slot="{ field }" name="ip_address">
-                    <input v-bind="field" type="text" name="ip_address" id="ip_address" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                    <input v-bind="field" type="text" name="ip_address" id="ip_address" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" :class="{'opacity-50 cursor-not-allowed': mode == 'Edit'}" :disabled="mode == 'Edit'" />
                 </Field>
                 <ErrorMessage v-slot="{ message }" as="div" name="ip_address">
                     <p class="text-xs text-red-600">{{ message }}</p>
@@ -70,12 +70,11 @@ async function handleSubmitIp() {
             <div class="mb-3">
                 <label for="comment" class="block text-sm/6 font-medium text-gray-900">Add a comment</label>
                 <div class="mt-2">
-                    <textarea v-model="editableIp.comment" rows="4" name="comment" id="comment" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                    <textarea v-model="editableIp.comment" rows="4" name="comment" id="comment" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" :class="{'opacity-50 cursor-not-allowed': mode == 'Edit'}" :disabled="mode == 'Edit'" />
                 </div>
             </div>
             <div class="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" class="text-sm/6 font-semibold text-gray-900 hover:cursor-pointer" :class="{'opacity-50 cursor-not-allowed': isLoading}" :disabled="isLoading">Cancel</button>
-                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:cursor-pointer" :class="{'opacity-50 cursor-not-allowed': isLoading}" :disabled="isLoading"> {{ mode == 'add' ? 'Submit' : 'Save' }}</button>
+                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:cursor-pointer" :class="{'opacity-50 cursor-not-allowed': isLoading}" :disabled="isLoading"> {{ mode == 'Add' ? 'Submit' : 'Save' }}</button>
             </div>
         </form>
     </VeeForm>

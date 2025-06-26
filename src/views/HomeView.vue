@@ -81,9 +81,9 @@ function deleteIp() {
         </template>
         <template #action="index">
           <div class="flex gap-2">
-            <span v-if="checkRole('super_admin') || index.index.user_id === authStore.user.id" class="p-1 bg-blue-500 text-white rounded-md hover:cursor-pointer hover:bg-blue-600">
+            <router-link :to="'/edit-ip/' + index.index.id" v-if="checkRole('super_admin') || index.index.user_id === authStore.user.id" class="p-1 bg-blue-500 text-white rounded-md hover:cursor-pointer hover:bg-blue-600">
               <PencilSquareIcon class="size-5"/>
-            </span>
+            </router-link>
             <button @click="openDeleteModal(index.index)" v-if="checkRole('super_admin')" class="p-1 bg-red-500 text-white rounded-md hover:cursor-pointer hover:bg-red-600">
               <TrashIcon class="size-5"/>
             </button>

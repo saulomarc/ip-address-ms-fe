@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import AddNewIPView from '@/views/AddNewIPView.vue';
 
 import 'vue-router';
+import EditIpView from '@/views/EditIpView.vue';
 
 // declare a new module to include title string for type checking and avoiding unknown errors
 declare module 'vue-router' {
@@ -29,6 +30,12 @@ const router = createRouter({
       name: 'add-ip',
       component: AddNewIPView,
       meta: { layout: 'DashboardLayout', title: 'Add New IP', breadcrumb: 'Add New IP' },
+    },
+    {
+      path: '/edit-ip/:id',
+      name: 'edit-ip',
+      component: EditIpView,
+      meta: { layout: 'DashboardLayout', title: 'Edit IP', breadcrumb: 'Edit IP' },
     },
     {
       path: '/about',
