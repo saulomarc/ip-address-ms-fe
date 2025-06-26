@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', {
     state: () => {
         return {
             token: null as string | null,
+            sessionId: null as string | null, 
             authenticated: false,
             user: {} as User,
             roles: [] as string[],
@@ -42,7 +43,7 @@ export const useAuthStore = defineStore('auth', {
                 }
             }
         },
-        async handleCallback(payload: { access_token: string, type: string, expires_in: Number }) {
+        async handleCallback(payload: { access_token: string, type: string, expires_in: Number, session_id: string }) {
             try {
                 this.setLoginDetails(payload)
                 const { data } = await instance.post('auth/me');
@@ -75,11 +76,13 @@ export const useAuthStore = defineStore('auth', {
             this.token = null
             this.authenticated = false
             this.user = {} as User
+            this.sessionId = null
 
             router.push({ name: 'login' })
         },
-        setLoginDetails(loginDetails: { access_token: string, type: string, expires_in: Number }) {
+        setLoginDetails(loginDetails: { access_token: string, type: string, expires_in: Number, session_id: string }) {
             this.token = loginDetails.access_token
+            this.sessionId = loginDetails.session_id
             this.authenticated = true
         },
         setUserDetails(userDetails: User) {

@@ -10,9 +10,11 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const token = useAuthStore().token;
+        const session_id = useAuthStore().sessionId;
 
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
+            config.headers['X-Session-ID'] = session_id;
         }
 
         return config;
