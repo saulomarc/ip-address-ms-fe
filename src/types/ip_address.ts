@@ -6,7 +6,7 @@ export interface IPAddress {
     [key: string]: any
 }
 
-export interface paginationLink {
+export interface PaginationLink {
     url: string | null,
     label: string,
     active: boolean
@@ -19,7 +19,7 @@ export interface IpAddressData {
     from: number,
     last_page: number,
     last_page_url: string,
-    links: paginationLink[],
+    links: PaginationLink[],
     next_page_url: string | null,
     path: string,
     per_page: number,
