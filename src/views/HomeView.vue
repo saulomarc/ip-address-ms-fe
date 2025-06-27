@@ -72,7 +72,7 @@ function deleteIp() {
       </template>
     </Modal>
 
-    <div v-if="!isInitialLoading && !isLoading">
+    <div v-if="!isInitialLoading">
       <Datatables ref="ingredientTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getIpAddressData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
         <template #owner="index">
           <div class="bg-amber-100 text-amber-600 rounded-full py-1 px-2 text-center w-fit">
@@ -84,7 +84,7 @@ function deleteIp() {
             <router-link :to="'/edit-ip/' + index.index.id" v-if="checkRole('super_admin') || index.index.user_id === authStore.user.id" class="p-1 bg-blue-500 text-white rounded-md hover:cursor-pointer hover:bg-blue-600">
               <PencilSquareIcon class="size-5"/>
             </router-link>
-            <button @click="openDeleteModal(index.index)" v-if="checkRole('super_admin')" class="p-1 bg-red-500 text-white rounded-md hover:cursor-pointer hover:bg-red-600">
+            <button @click="openDeleteModal(index.index as IPAddress)" v-if="checkRole('super_admin')" class="p-1 bg-red-500 text-white rounded-md hover:cursor-pointer hover:bg-red-600">
               <TrashIcon class="size-5"/>
             </button>
           </div>

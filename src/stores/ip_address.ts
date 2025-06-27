@@ -234,21 +234,29 @@ export const useIPAddressStore = defineStore('ipAddress', {
     },
     getters: {
         getIpAddressData(): TableData {
-            var ipAddresses = this.ipAddresses.data.map((gl) => {
-                return gl
-            }) as IPAddress[]
-
-            var paginationData = {
-                last_page: this.ipAddresses.last_page,
-                current_page: this.ipAddresses.current_page,
+            if (this.ipAddresses.data) {
+                var ipAddresses = this.ipAddresses.data.map((gl) => {
+                    return gl
+                }) as IPAddress[]
+    
+                var paginationData = {
+                    last_page: this.ipAddresses.last_page,
+                    current_page: this.ipAddresses.current_page,
+                }
+    
+                var tableData = {
+                    data: ipAddresses,
+                    ...paginationData
+                }
+    
+                return tableData
+            } else {
+                return {
+                    data: [] as IPAddress[],
+                    last_page: 0,
+                    current_page: 0
+                }
             }
-
-            var tableData = {
-                data: ipAddresses,
-                ...paginationData
-            }
-
-            return tableData
         },
     }
 })

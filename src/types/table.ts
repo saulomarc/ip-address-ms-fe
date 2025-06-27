@@ -1,4 +1,4 @@
-import type { IPAddress } from "./ip_address"
+
 
 export interface TableHeader {
     name: string,
@@ -8,8 +8,12 @@ export interface TableHeader {
     selectField?: string
 }
 
+export interface TableContents {
+    [key: string]: any
+}
+
 export interface TableData {
-    data: IPAddress[],
+    data: TableContents[],
     current_page: number,
     last_page: number, 
     lastIndex?: number,
