@@ -54,10 +54,10 @@ const router = createRouter({
       meta: { layout: 'PlainLayout', title: 'Not Found' },
     },
     {
-      path: '/logs',
-      name: 'logs',
+      path: '/audit',
+      name: 'audit',
       component: LogsView,
-      meta: { layout: 'DashboardLayout', title: 'Logs', role: 'super_admin' },
+      meta: { layout: 'DashboardLayout', title: 'Audit', role: 'super_admin' },
     },
     {
       path: '/login',

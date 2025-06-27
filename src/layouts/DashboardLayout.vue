@@ -32,7 +32,7 @@ const { checkRole } = store
                         <div class="hidden md:ml-6 md:flex md:space-x-8">
                             <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                             <router-link to="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Dashboard</router-link>
-                            <router-link v-if="checkRole('super_admin')" to="/logs" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Logs</router-link>
+                            <router-link v-if="checkRole('super_admin')" to="/audit" class="inline-flex items-center px-1 pt-1 text-sm font-medium hover:border-gray-300 hover:text-gray-700 hover:border-b-2" activeClass="border-indigo-500 text-gray-900 border-b-2">Audit</router-link>
                         </div>
                     </div>
                     <div class="flex items-center">
@@ -69,7 +69,7 @@ const { checkRole } = store
                 <div class="space-y-1 pt-2 pb-3">
                     <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
                     <DisclosureButton as="a" href="/" class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pr-4 pl-3 text-base font-medium text-indigo-700 sm:pr-6 sm:pl-5">Dashboard</DisclosureButton>
-                    <DisclosureButton v-if="checkRole('super_admin')" as="a" href="/logs" class="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pr-6 sm:pl-5">Logs</DisclosureButton>
+                    <DisclosureButton v-if="checkRole('super_admin')" as="a" href="/audit" class="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pr-6 sm:pl-5">Audit</DisclosureButton>
                 </div>
                 <div class="border-t border-gray-200 pt-4 pb-3">
                     <div class="flex items-center px-4 sm:px-6">
