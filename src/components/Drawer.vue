@@ -14,7 +14,11 @@
                                     <div class="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
                                         <div class="px-4 sm:px-6">
                                             <div class="flex items-start justify-between">
-                                                <DialogTitle class="text-base font-semibold text-gray-900">Panel title</DialogTitle>
+                                                <DialogTitle class="text-base font-semibold text-gray-900">
+                                                    <slot name="title">
+
+                                                    </slot>
+                                                </DialogTitle>
                                                 <div class="ml-3 flex h-7 items-center">
                                                     <button type="button" class="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:outline-hidden" @click="closeDrawer">
                                                         <span class="absolute -inset-2.5" />
