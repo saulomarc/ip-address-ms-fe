@@ -4,9 +4,6 @@ import UserSessionTable from '@/components/Audit/UserSessionTable.vue';
 
 <template>
     <main>
-        <div class="flex items-center justify-center">
-            Logs Page
-        </div>
         <UserSessionTable />
     </main>
 </template>

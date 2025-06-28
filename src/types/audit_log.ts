@@ -11,11 +11,16 @@ export interface ActivityLog {
     id: number,
     log_name: string,
     description: string,
-    properties: string,
+    properties: Properties,
     created_at: Date,
     updated_at: Date,
     session_id: string,
     [key: string]: any
+}
+
+export interface Properties {
+    new?: {},
+    old?: {},
 }
 
 export interface PaginationLink {

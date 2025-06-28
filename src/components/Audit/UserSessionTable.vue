@@ -40,6 +40,9 @@ function temporaryExportingFunction() {
 
 <template>
     <div>
+        <h3 class="text-lg font-bold">
+            User Session Logs
+        </h3>
         <div v-if="!isInitialLoading">
             <Datatables ref="ingredientTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getUserSessionData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
                 <template #user="index">
@@ -66,9 +69,17 @@ function temporaryExportingFunction() {
         
 
         <Drawer :is-open="open" @closeDrawer="closeDrawer">
+            <template v-slot:title>
+                Session Logs
+                <div class="text-sm">
+                    <i>{{ userSessionSelected.session_id }}</i>
+                </div>
+                <div class="text-sm text-gray-400">
+                    Log In Time: {{ dayjs(userSessionSelected.logged_on).format('MMMM DD, YYYY hh:mm A') }}
+                </div>
+            </template>
             <template v-slot:content>
-                {{ userSessionSelected.logs }}
-                <ActivityLogs />
+                <ActivityLogs :logs="userSessionSelected.logs"/>
             </template>
         </Drawer>
     </div>

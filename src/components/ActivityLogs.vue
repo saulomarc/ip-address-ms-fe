@@ -1,31 +1,56 @@
 <template>
     <div class="flow-root">
-        <ul role="list" class="-mb-8">
-            <li v-for="(activityItem, activityItemIdx) in activity" :key="activityItem.id">
-                <div class="relative pb-8">
-                    <span v-if="activityItemIdx !== activity.length - 1" class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+        <ul v-if="logs.length > 0" role="list" class="-mb-8">
+            <li v-for="(activityItem, activityItemIdx) in logs" :key="activityItem.id">
+                <div class="relative pb-4">
+                    <span v-if="activityItemIdx !== logs.length - 1" class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
                     <div class="relative flex items-start space-x-3">
-                        <template v-if="activityItem.type === 'comment'">
+                        <template v-if="activityItem.description === 'created'">
                             <div class="relative">
-                                <img class="flex size-10 items-center justify-center rounded-full bg-gray-400 ring-8 ring-white" :src="activityItem.imageUrl" alt="" />
-                                
+                                <UserCircleIcon class="flex size-10 items-center justify-center rounded-full text-gray-500 bg-gray-100 ring-8 ring-white" aria-hidden="true" />
+                                                                
                                 <span class="absolute -right-1 -bottom-0.5 rounded-tl bg-white px-0.5 py-px">
-                                    <ChatBubbleLeftEllipsisIcon class="size-5 text-gray-400" aria-hidden="true" />
+                                    <PlusIcon class="size-5 text-gray-400" aria-hidden="true" />
                                 </span>
                             </div>
                             <div class="min-w-0 flex-1">
                                 <div>
                                     <div class="text-sm">
-                                        <a :href="activityItem.person.href" class="font-medium text-gray-900">{{ activityItem.person.name }}</a>
+                                        <span class="font-medium text-gray-900">{{ activityItem.user_name }}</span>
                                     </div>
-                                    <p class="mt-0.5 text-sm text-gray-500">Commented {{ activityItem.date }}</p>
+                                    <p class="mt-0.5 text-sm text-gray-500">Created IP Address # {{ activityItem.subject_id }}</p>
+                                    <p class="mt-0.5 text-sm text-gray-500">{{ dayjs(activityItem.created_at).format('MMMM DD, YYYY hh:mm A') }}</p>
                                 </div>
-                                <div class="mt-2 text-sm text-gray-700">
-                                    <p>{{ activityItem.comment }}</p>
+                                <div class="text-sm text-gray-700">
+                                    <ActivityDetails :properties="activityItem.properties.new!" />
                                 </div>
                             </div>
                         </template>
-                        <template v-else-if="activityItem.type === 'assignment'">
+                        <template v-else-if="activityItem.description === 'edited'">
+                            <div class="relative">
+                                <UserCircleIcon class="flex size-10 items-center justify-center rounded-full text-gray-500 bg-gray-100 ring-8 ring-white" aria-hidden="true" />
+                                                                
+                                <span class="absolute -right-1 -bottom-0.5 rounded-tl bg-white px-0.5 py-px">
+                                    <PencilSquareIcon class="size-5 text-gray-400" aria-hidden="true" />
+                                </span>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div>
+                                    <div class="text-sm">
+                                        <span class="font-medium text-gray-900">{{ activityItem.user_name }}</span>
+                                    </div>
+                                    <p class="mt-0.5 text-sm text-gray-500">Edited IP Address # {{ activityItem.subject_id }}</p>
+                                    <p class="mt-0.5 text-sm text-gray-500">{{ dayjs(activityItem.created_at).format('MMMM DD, YYYY hh:mm A') }}</p>
+                                </div>
+                                <div class="mt-2 text-sm text-gray-700">
+                                    <label for="old_values" class="block text-sm font-medium">Old Values</label>
+                                    <ActivityDetails :properties="activityItem.properties.old!" />
+                                    <label for="new_values" class="block text-sm font-medium">New Values</label>
+                                    <ActivityDetails :properties="activityItem.properties.new!" />
+                                </div>
+                            </div>
+                        </template>
+                        <!-- <template v-else-if="activityItem.type === 'assignment'">
                             <div>
                                 <div class="relative px-1">
                                     <div class="flex size-8 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white">
@@ -75,16 +100,27 @@
                                     <span class="whitespace-nowrap">{{ activityItem.date }}</span>
                                 </div>
                             </div>
-                        </template>
+                        </template> -->
                     </div>
                 </div>
             </li>
         </ul>
+        <div v-else class="text-center italic mt-8">
+            -- No Activity Recorded --
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ChatBubbleLeftEllipsisIcon, TagIcon, UserCircleIcon } from '@heroicons/vue/20/solid'
+import type { ActivityLog } from '@/types/audit_log';
+import {UserCircleIcon, PlusIcon, PencilSquareIcon} from '@heroicons/vue/20/solid'
+import ActivityDetails from './Audit/ActivityDetails.vue';
+import dayjs from 'dayjs';
+
+
+const props = defineProps<{
+    logs: ActivityLog[]
+}>()
 
 const activity = [
 {
