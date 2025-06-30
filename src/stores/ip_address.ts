@@ -17,8 +17,9 @@ export const useIPAddressStore = defineStore('ipAddress', {
             isInitialLoading: true,
             isLoading: false,
             filterHeaders: [ 
-                // { field: 'pizza_type_id', name: 'name', type: 'input', label: 'Pizza Type' },
-                // { field: 'size', name: 'size', type: 'select', label: 'Size' },
+                { field: 'owner_name_like', name: 'owner_name_like', type: 'input', label: 'Owner Name' },
+                { field: 'ip_address_like', name: 'ip_address_like', type: 'input', label: 'IP Address' },
+                { field: 'label_like', name: 'label_like', type: 'input', label: 'Label' },
             ] as FilterHeader[],
             headers: [
                 {

@@ -98,7 +98,7 @@
             :current-page="tableData.current_page" @change="changePage"/>
         </div>
         <Loader v-if="isInitialLoad && isLoading" :loaderType="'table'" :columnNum="4" />
-        <FilterModal v-show="showModal" :isOpen='true' @onCloseModal="toggleModal">
+        <FilterModal v-show="showModal" :isOpen="showModal" @onCloseModal="toggleModal">
             <template v-slot:title>
                 <div class="flex items-center">
                     <FunnelIcon class="text-black size-5 mr-2" />
@@ -108,9 +108,9 @@
 
             <template v-slot:content>
                 <FilterComponent :isLoading="isInitialLoad" :filter_headers="tableFilters" :filters="tableFilterData"
-                    @applyFilter="filterAction" :isModal="showModal" :index='tableIndex' />
+                    @applyFilter="filterAction" :isModal="true" :index='tableIndex' />
             </template>
-      </FilterModal>
+        </FilterModal>
     </div>
 </template>
 
