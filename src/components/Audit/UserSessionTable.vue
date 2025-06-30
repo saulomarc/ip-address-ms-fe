@@ -40,9 +40,6 @@ function temporaryExportingFunction() {
 
 <template>
     <div>
-        <h3 class="text-lg font-bold">
-            User Session Logs
-        </h3>
         <div v-if="!isInitialLoading">
             <Datatables ref="ingredientTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getUserSessionData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
                 <template #user="index">

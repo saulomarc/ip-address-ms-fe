@@ -72,6 +72,9 @@ function deleteIp() {
       </template>
     </Modal>
 
+    <h3 class="text-lg font-bold">
+      IP Addresses
+    </h3>
     <div v-if="!isInitialLoading">
       <Datatables ref="ingredientTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getIpAddressData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
         <template #owner="index">
