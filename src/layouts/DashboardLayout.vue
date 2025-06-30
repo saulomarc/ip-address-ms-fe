@@ -3,12 +3,15 @@ import HelloWorld from '../components/HelloWorld.vue'
 import Breadcrumbs from '../components/Breadcrumbs.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { PlusIcon } from '@heroicons/vue/20/solid'
+import { PlusIcon, UserCircleIcon } from '@heroicons/vue/20/solid'
 import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
 
 const store = useAuthStore()
 
 const { checkRole } = store
+
+const user = computed(() => store.user)
 </script>
 
 <template>
@@ -49,7 +52,7 @@ const { checkRole } = store
                                     <MenuButton class="relative flex rounded-full bg-white text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
                                         <span class="absolute -inset-1.5" />
                                         <span class="sr-only">Open user menu</span>
-                                        <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                        <UserCircleIcon class="size-8 rounded-full"/>
                                     </MenuButton>
                                 </div>
                                 <transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -74,11 +77,11 @@ const { checkRole } = store
                 <div class="border-t border-gray-200 pt-4 pb-3">
                     <div class="flex items-center px-4 sm:px-6">
                         <div class="shrink-0">
-                            <img class="size-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                            <UserCircleIcon class="size-10 rounded-full"/>
                         </div>
                         <div class="ml-3">
-                            <div class="text-base font-medium text-gray-800">Tom Cook</div>
-                            <div class="text-sm font-medium text-gray-500">tom@example.com</div>
+                            <div class="text-base font-medium text-gray-800">{{ user.name }}</div>
+                            <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
                         </div>
                     </div>
                     <div class="mt-3 space-y-1">
