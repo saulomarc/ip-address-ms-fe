@@ -5,7 +5,7 @@ import Datatables from '@/components/Datatables.vue';
 
 import type { UserSession } from '@/types/audit_log';
 
-import { useUserSessionStore } from '@/stores/user_session'
+import { useUserSessionStore } from '@/stores/audit/user_session'
 
 import { computed, ref } from 'vue'
 import dayjs from 'dayjs';
@@ -41,7 +41,7 @@ function temporaryExportingFunction() {
 <template>
     <div>
         <div v-if="!isInitialLoading">
-            <Datatables ref="ingredientTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getUserSessionData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
+            <Datatables ref="userSessionTable" :isLoading="isLoading" :isInitialLoad="isInitialLoading" :isExportEnabled="true" :filePrefix="'IP_ADDRESSES_'" :tableIndex="0" :tableFilters="filterHeaders" :tableFilterData="store.filters" :tableHeaders="headers" :tableData="store.getUserSessionData" :tableOptions="options" @onUpdateOptions="handleOptionsUpdate" @onUpdatePage="handlePagination" @onUpdateSorting="handleSortingUpdate" @onClickExport="temporaryExportingFunction">
                 <template #user="index">
                     <div class="bg-amber-100 text-amber-600 rounded-full py-1 px-2 text-center w-fit">
                         {{ index.index.user_name }}
