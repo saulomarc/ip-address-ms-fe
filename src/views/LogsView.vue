@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IPAddressTable from '@/components/Audit/IPAddressTable.vue';
 import UserSessionTable from '@/components/Audit/UserSessionTable.vue';
 import { ChevronDownIcon } from '@heroicons/vue/16/solid'
 import { ref } from 'vue';
@@ -37,9 +38,7 @@ function changeTab(name: String) {
         </div>
         <div class="mt-4">
             <UserSessionTable v-if="tabs[0].current == true" />
-            <div v-else-if="tabs[1].current == true">
-                IP Address Activities
-            </div>
+            <IPAddressTable v-else-if="tabs[1].current == true" />
         </div>
     </main>
 </template>
