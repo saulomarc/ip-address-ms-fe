@@ -30,14 +30,9 @@ cd ip-address-ms-fe
 cp .env.example .env
 ```
 
-### 3. Build the image
+### 3. Build and run the container
 ```bash
-docker build -t vue-app .
-```
-
-### 4. Run the image
-```bash
-docker run -it -p 5173:5173 --rm --name dockerize-vuejs-app-1 vue-app
+docker compose up --build -d
 ```
 
 ### User Access
