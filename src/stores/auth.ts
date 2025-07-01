@@ -28,6 +28,8 @@ export const useAuthStore = defineStore('auth', {
                 if (!axios.isAxiosError(error)) {
                     const errMessage = `Something went wrong while performing your request. Please contact administrator`;
                     useAlertStore().error(errMessage)
+                } else if (error.status == 401) {
+                    useAlertStore().error(error.response?.data.error)
                 }
             }
         },
