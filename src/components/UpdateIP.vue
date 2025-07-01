@@ -8,6 +8,7 @@ import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 import router from '@/router';
 import { computed } from 'vue';
 import * as yup from 'yup';
+import { IP_ADDRESS_REGEX } from '@/constants';
 
 const props = defineProps<{
     mode: String
@@ -15,7 +16,7 @@ const props = defineProps<{
 }>()
 
 const ipSchema = yup.object({
-    ip_address: yup.string().required("IP Address is a required field"),
+    ip_address: yup.string().required("IP Address is a required field").matches(IP_ADDRESS_REGEX, 'Must be in valid IP Address Format'),
     label: yup.string().required("Label is a required field"),
 });
 
