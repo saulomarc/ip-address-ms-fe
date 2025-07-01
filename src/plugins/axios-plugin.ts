@@ -32,7 +32,19 @@ instance.interceptors.response.use(
 
     async (error) => {
         if (error.response && error.status === 401) {
-            useAuthStore().unsetLoginDetails()
+            try {
+                // access refresh route to get a refreshed token
+                const { data } = await instance.post(`refresh`);
+                const newToken = data.access_token;
+
+                //set the new token in the auth store for global use
+                useAuthStore().token = data.access_token;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+                error.config.headers['Authorization'] = `Bearer ${newToken}`;
+                return axios.request(error.config);
+            } catch (e) {
+                useAuthStore().unsetLoginDetails()
+            }
         } else if (error.response && error.status === 403) {
             useAlertStore().error("You are unauthorized to perform this action")
             router.push({ name: 'unauthorized'})
