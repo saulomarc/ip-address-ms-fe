@@ -7,3 +7,4 @@ services:
     volumes:
       - .:/app #mounts the project directory from host into the container at /app to ensure that code changes in host is reflected immediately in container
       - /app/node_modules  # prevent overwriting container's node_modules
+    command: sh -c "npm install && npm run dev -- --host"
