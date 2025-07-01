@@ -50,57 +50,24 @@
                                 </div>
                             </div>
                         </template>
-                        <!-- <template v-else-if="activityItem.type === 'assignment'">
-                            <div>
-                                <div class="relative px-1">
-                                    <div class="flex size-8 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white">
-                                        <UserCircleIcon class="size-5 text-gray-500" aria-hidden="true" />
-                                    </div>
-                                </div>
+                        <template v-else-if="activityItem.description === 'deleted'">
+                            <div class="relative">
+                                <UserCircleIcon class="flex size-10 items-center justify-center rounded-full text-gray-500 bg-gray-100 ring-8 ring-white" aria-hidden="true" />
+                                                                
+                                <span class="absolute -right-1 -bottom-0.5 rounded-tl bg-white px-0.5 py-px">
+                                    <TrashIcon class="size-5 text-gray-400" aria-hidden="true" />
+                                </span>
                             </div>
-                            <div class="min-w-0 flex-1 py-1.5">
-                                <div class="text-sm text-gray-500">
-                                    <a :href="activityItem.person.href" class="font-medium text-gray-900">{{ activityItem.person.name }}</a>
-                                    {{ ' ' }}
-                                    assigned
-                                    {{ ' ' }}
-                                    <a :href="activityItem.assigned!.href" class="font-medium text-gray-900">{{ activityItem.assigned!.name }}</a>
-                                    {{ ' ' }}
-                                    <span class="whitespace-nowrap">{{ activityItem.date }}</span>
+                            <div class="min-w-0 flex-1">
+                                <div>
+                                    <div class="text-sm">
+                                        <span class="font-medium text-gray-900">{{ activityItem.user_name }}</span>
+                                    </div>
+                                    <p class="mt-0.5 text-sm text-gray-500">Deleted IP Address # {{ activityItem.subject_id }}</p>
+                                    <p class="mt-0.5 text-sm text-gray-500">{{ dayjs(activityItem.created_at).format('MMMM DD, YYYY hh:mm A') }}</p>
                                 </div>
                             </div>
                         </template>
-                        <template v-else-if="activityItem.type === 'tags'">
-                            <div>
-                                <div class="relative px-1">
-                                    <div class="flex size-8 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white">
-                                        <TagIcon class="size-5 text-gray-500" aria-hidden="true" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="min-w-0 flex-1 py-0">
-                                <div class="text-sm/8 text-gray-500">
-                                    <span class="mr-0.5">
-                                        <a :href="activityItem.person.href" class="font-medium text-gray-900">{{ activityItem.person.name }}</a>
-                                        {{ ' ' }}
-                                        added tags
-                                    </span>
-                                    {{ ' ' }}
-                                    <span class="mr-0.5">
-                                        <template v-for="tag in activityItem.tags" :key="tag.name">
-                                            <a :href="tag.href" class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-gray-200 ring-inset">
-                                                <svg :class="[tag.color, 'size-1.5']" viewBox="0 0 6 6" aria-hidden="true">
-                                                    <circle cx="3" cy="3" r="3" />
-                                                </svg>
-                                                {{ tag.name }}
-                                            </a>
-                                            {{ ' ' }}
-                                        </template>
-                                    </span>
-                                    <span class="whitespace-nowrap">{{ activityItem.date }}</span>
-                                </div>
-                            </div>
-                        </template> -->
                     </div>
                 </div>
             </li>
@@ -113,7 +80,7 @@
 
 <script setup lang="ts">
 import type { ActivityLog } from '@/types/audit_log';
-import {UserCircleIcon, PlusIcon, PencilSquareIcon} from '@heroicons/vue/20/solid'
+import {UserCircleIcon, PlusIcon, PencilSquareIcon, TrashIcon} from '@heroicons/vue/20/solid'
 import ActivityDetails from './Audit/ActivityDetails.vue';
 import dayjs from 'dayjs';
 
